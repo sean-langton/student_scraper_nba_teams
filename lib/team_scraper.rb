@@ -1,8 +1,6 @@
 #require "student_scraper_nba_teams/version"
 #change back to environment when done
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
+require_relative "../config/environment.rb"
 
 class Scraper
 
@@ -41,4 +39,3 @@ class Scraper
   seasons
   end
 end
-binding.pry
