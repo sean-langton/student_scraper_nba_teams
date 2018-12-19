@@ -25,10 +25,20 @@ class Scraper
     scraped_teams
   end
 
-  def self.scrape_players
-
+  def self.scrape_seasons(team_link)
+    seasons = []
+    doc = Nokogiri::HTML(open("https://www.basketball-reference.com#{team_link}"))
+    doc.css("tbody").css("tr").each do |season|
+    year = season.css("th").text
+    league = season.css("td")[0].text
+    team_name = season.css("td")[1].text
+    wins = season.css("td")[2].text
+    losses = season.css("td")[3].text
+    playoffs = season.css("td")[15].text
+    season = {year:year, league:league, team_name:team_name, wins:wins, losses:losses, playoffs:playoffs}
+    seasons.push(season)
   end
-
+  seasons
+  end
 end
-
 binding.pry
