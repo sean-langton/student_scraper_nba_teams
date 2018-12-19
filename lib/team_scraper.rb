@@ -11,9 +11,8 @@ class Scraper
       name = team.css("th").text
       team_link = team.css("a").attribute("href").value
       year_started = team.css("td")[1].text
-      wins = team.css("td")[5].text
-      losses = team.css("td")[6].text
-      playoffs = team.css("td")[8].text
+      historic_win_pct = team.css("td")[7].text
+      playoff_app = team.css("td")[8].text
       div_champ = team.css("td")[9].text
       conf_champ = team.css("td")[10].text
       league_champ = team.css("td")[11].text
