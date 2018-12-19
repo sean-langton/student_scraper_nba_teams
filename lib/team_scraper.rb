@@ -4,9 +4,9 @@ require_relative "../config/environment.rb"
 
 class Scraper
 
-  def self.scrape_teams
+  def self.scrape_teams(url)
     scraped_teams = []
-    doc = Nokogiri::HTML(open("https://www.basketball-reference.com/teams/"))
+    doc = Nokogiri::HTML(open(url))
     doc.css(".full_table").each do |team|
       name = team.css("th").text
       team_link = team.css("a").attribute("href").value
@@ -25,7 +25,7 @@ class Scraper
 
   def self.scrape_seasons(team_link)
     seasons = []
-    doc = Nokogiri::HTML(open("https://www.basketball-reference.com#{team_link}"))
+    doc = Nokogiri::HTML(open(team_link))
     doc.css("tbody").css("tr").each do |season|
     year = season.css("th").text
     league = season.css("td")[0].text
