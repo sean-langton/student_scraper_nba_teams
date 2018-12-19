@@ -7,7 +7,7 @@ class Scraper
   def self.scrape_teams(url)
     scraped_teams = []
     doc = Nokogiri::HTML(open(url))
-    doc.css(".full_table").each do |team|
+    doc.css("#teams_active").css("tr.full_table").each do |team|
       name = team.css("th").text
       team_link = team.css("a").attribute("href").value
       year_started = team.css("td")[1].text
@@ -16,25 +16,25 @@ class Scraper
       div_champ = team.css("td")[9].text
       conf_champ = team.css("td")[10].text
       league_champ = team.css("td")[11].text
-      team = {name:name, link:team_link, founded:year_started, wins:wins, losses:losses, playoff_app:playoffs, div_champ:div_champ, conf_champ:conf_champ, league_champ:league_champ}
+      team = {name:name, team_link:team_link, founded:year_started, historic_win_pct:historic_win_pct, playoff_app:playoff_app, div_champ:div_champ, conf_champ:conf_champ, league_champ:league_champ}
       scraped_teams.push(team)
     end
-    scraped_teams
+  scraped_teams
   end
 
-  def self.scrape_seasons(team_link)
-    seasons = []
-    doc = Nokogiri::HTML(open(team_link))
-    doc.css("tbody").css("tr").each do |season|
-    year = season.css("th").text
-    league = season.css("td")[0].text
-    team_name = season.css("td")[1].text
-    wins = season.css("td")[2].text
-    losses = season.css("td")[3].text
-    playoffs = season.css("td")[15].text
-    season = {year:year, league:league, team_name:team_name, wins:wins, losses:losses, playoffs:playoffs}
-    seasons.push(season)
-  end
-  seasons
-  end
+#  def self.scrape_seasons(team_link)
+#    seasons = []
+#    doc = Nokogiri::HTML(open(team_link))
+#    doc.css("tbody").css("tr").each do |season|
+#    year = season.css("th").text
+#    league = season.css("td")[0].text
+#    team_name = season.css("td")[1].text
+#    wins = season.css("td")[2].text
+#    losses = season.css("td")[3].text
+#    playoffs = season.css("td")[15].text
+#    season = {year:year, league:league, team_name:team_name, wins:wins, losses:losses, playoffs:playoffs}
+#    seasons.push(season)
+#  end
+#  seasons
+#  end
 end

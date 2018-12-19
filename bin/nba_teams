@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "../config/environment.rb"
+require_relative "../lib/cli.rb"
 
 
-puts "Hello World"
+CLI.new.run

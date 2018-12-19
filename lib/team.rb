@@ -1,7 +1,6 @@
 class Team
 
-  attr_accessor :name, :founded, :historic_win_pct, :playoff_app, :div_champ, :conf_champ, :league_champ/
-  :year, :league, :team_name, :wins, :losses, :playoffs
+  attr_accessor :name, :team_link, :founded, :historic_win_pct, :playoff_app, :div_champ, :conf_champ, :league_champ, :year, :league, :team_name, :wins, :losses, :playoffs
 
   @@all = []
 
@@ -15,4 +14,8 @@ class Team
     team_array.each {|team_hash| Team.new(team_hash)}
   end
 
-end 
+  def self.all
+    @@all
+  end
+
+end
