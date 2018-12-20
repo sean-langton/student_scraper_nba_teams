@@ -5,13 +5,13 @@ class Team
   @@all = []
 
   def initialize(team_hash)
-    team_hash.each {|key, value| self.send(("#{key}="), value)
+    team_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all.push(self)
-    }
   end
 
   def self.create_from_collection(team_array)
-    team_array.each {|team_hash| Team.new(team_hash)}
+    team_array.each {|team_hash| Team.new(team_hash)
+    }
   end
 
   def self.all
