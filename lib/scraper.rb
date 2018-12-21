@@ -6,7 +6,11 @@ class Scraper
 
   def self.scrape_teams(url)
     scraped_teams = []
-    doc = Nokogiri::HTML(open(url))
+    begin
+    doc = Nokogiri::HTML(open(url)) if open(url)
+    rescue
+      raise InternetError
+    end
     doc.css("#teams_active").css("tr.full_table").each do |team|
       name = team.css("th").text
       team_link = team.css("a").attribute("href").value
@@ -39,4 +43,8 @@ class Scraper
   end
   seasons
   end
+end
+
+class InternetError < StandardError
+
 end
