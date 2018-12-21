@@ -11,6 +11,8 @@ class Scraper
       name = team.css("th").text
       team_link = team.css("a").attribute("href").value
       year_started = team.css("td")[1].text
+      historic_wins = team.css("td")[5].text
+      historic_losses = team.css("td")[6].text
       historic_win_pct = team.css("td")[7].text
       playoff_app = team.css("td")[8].text
       div_champ = team.css("td")[9].text
@@ -22,19 +24,12 @@ class Scraper
   scraped_teams
   end
 
-  def self.scrape_seasons(team_link)
-    seasons = []
+  def self.scrape_season(team_link)
+    season = Hash.new
     doc = Nokogiri::HTML(open(team_link))
-    doc.css("tbody").css("tr").each do |season|
-    year = season.css("th").text
-    league = season.css("td")[0].text
-    team_name = season.css("td")[1].text
-    wins = season.css("td")[2].text
-    losses = season.css("td")[3].text
-    playoffs = season.css("td")[15].text
-    season = {year:year, league:league, team_name:team_name, wins:wins, losses:losses, playoffs:playoffs}
-    seasons.push(season)
-  end
-  seasons
+    season[:wins] = doc.css("tbody").css("tr").first.css("td")[2].text
+    season[:losses] = doc.css("tbody").css("tr").first.css("td")[3].text
+    season[:win_pct] = doc.css("tbody").css("tr").first.css("td")[4].text  
+    season
   end
 end

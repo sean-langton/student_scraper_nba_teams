@@ -6,7 +6,8 @@ class CLI
 
   def run
     make_teams
-    display_historical
+#    add_recent_season
+    display_teams
   end
 
   def make_teams
@@ -14,16 +15,28 @@ class CLI
     Team.create_from_collection(teams_array)
   end
 
-  def display_historical
+#  def add_recent_season
+#    Team.all.each do |team|
+#      season = scrape_season(BASE_PATH + team.team_link)
+#      add_recent_season(season)
+#    end
+#  end
+
+  def display_teams
     Team.all.each do |team|
       best_performance =
         if team.league_champ.to_i > 0 then "League Champions (#{team.league_champ} times)"
-        elsif team.conf_champ.to_i > 0 then "Conference  Champions (#{team.conf_champ} times)"
-        elsif team.div_champ.to_i > 0 then "Divison  Champions (#{team.div_champ} times)"
+        elsif team.conf_champ.to_i > 0 then "Conference Champions (#{team.conf_champ} times)"
+        elsif team.div_champ.to_i > 0 then "Divison Champions (#{team.div_champ} times)"
         else "making (#{team.playoff_app} playoff appearences)"
         end
-      puts "The " + "#{team.name}" + " were founded in " + "#{team.founded}" +"."
-      puts "        Their best performance is " + "#{best_performance}"
+      puts "#{team.name}".colorize(:blue)
+      puts "Founded In: " + "#{team.founded}".colorize(:green)
+      puts "Best Performance: " + "#{best_performance}"
+      puts "Current Record"
+  end
+
+  def add_recent_seasons
   end
 
 end
