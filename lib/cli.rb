@@ -6,7 +6,7 @@ class CLI
 
   def run
     make_teams
-#    add_recent_season
+    add_season
     display_teams
   end
 
@@ -15,12 +15,13 @@ class CLI
     Team.create_from_collection(teams_array)
   end
 
-#  def add_recent_season
-#    Team.all.each do |team|
-#      season = scrape_season(BASE_PATH + team.team_link)
-#      add_recent_season(season)
-#    end
-#  end
+  def add_season
+    Team.all.each do |team|
+      season = Scraper.scrape_season(BASE_PATH + team.team_link.gsub("/teams/", ""))
+      Team.add_recent_season(season)
+      bi
+    end
+  end
 
   def display_teams
     Team.all.each do |team|
@@ -30,13 +31,11 @@ class CLI
         elsif team.div_champ.to_i > 0 then "Divison Champions (#{team.div_champ} times)"
         else "making (#{team.playoff_app} playoff appearences)"
         end
-      puts "#{team.name}".colorize(:blue)
+      puts "#{team.name}".colorize(:light_blue)
       puts "Founded In: " + "#{team.founded}".colorize(:green)
-      puts "Best Performance: " + "#{best_performance}"
-      puts "Current Record"
-  end
-
-  def add_recent_seasons
+      puts "Best Performance: " + "#{best_performance}".colorize(:green)
+      puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
+      puts "Current Record: " + "#{team.wins} - #{team.losses} (#{team.win_pct})".colorize(:green)
   end
 
 end

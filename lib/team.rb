@@ -14,9 +14,8 @@ class Team
     }
   end
 
-  def self.add_recent_season(season_hash)
-    season_hash.each {|key,value| self.send(("#{key}="), value)}
-    self
+  def self.add_recent_season(season_hash, team)
+    season_hash.each {|key,value| team.send(("#{key}="), value)}
   end
 
   def self.all

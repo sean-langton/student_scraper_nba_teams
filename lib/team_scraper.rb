@@ -29,7 +29,7 @@ class Scraper
     doc = Nokogiri::HTML(open(team_link))
     season[:wins] = doc.css("tbody").css("tr").first.css("td")[2].text
     season[:losses] = doc.css("tbody").css("tr").first.css("td")[3].text
-    season[:win_pct] = doc.css("tbody").css("tr").first.css("td")[4].text  
+    season[:win_pct] = doc.css("tbody").css("tr").first.css("td")[4].text
     season
   end
 end
