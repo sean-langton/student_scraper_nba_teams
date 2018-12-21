@@ -1,11 +1,12 @@
 class Team
 
-  attr_accessor :name, :team_link, :founded, :historic_wins, :historic_losses, :historic_win_pct, :playoff_app, :div_champ, :conf_champ, :league_champ, :wins, :losses, :win_pct
+  attr_accessor :name, :team_link, :founded, :historic_wins, :historic_losses, :historic_win_pct, :playoff_app, :div_champ, :conf_champ, :league_champ
 
   @@all = []
 
   def initialize(team_hash)
     team_hash.each {|key, value| self.send(("#{key}="), value)}
+    @seasons = []
     @@all.push(self)
   end
 
@@ -14,8 +15,8 @@ class Team
     }
   end
 
-  def self.add_recent_season(season_hash, team)
-    season_hash.each {|key,value| team.send(("#{key}="), value)}
+  def self.add_season(season)
+    @season << season
   end
 
   def self.all

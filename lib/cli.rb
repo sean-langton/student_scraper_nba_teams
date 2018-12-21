@@ -1,12 +1,13 @@
-require_relative "team_scraper.rb"
+require_relative "scraper.rb"
 require_relative "team.rb"
+require_relative "season.rb"
 
 class CLI
   BASE_PATH = "https://www.basketball-reference.com/teams/"
 
   def run
     make_teams
-    add_season
+    add_seasons
     display_teams
   end
 
@@ -15,11 +16,11 @@ class CLI
     Team.create_from_collection(teams_array)
   end
 
-  def add_season
+  def add_seasons
     Team.all.each do |team|
-      season = Scraper.scrape_season(BASE_PATH + team.team_link.gsub("/teams/", ""))
-      Team.add_recent_season(season)
-      bi
+      seasons_array = Scraper.scrape_seasons(BASE_PATH + team.team_link.gsub("/teams/", ""))
+      team = team
+      Season.create_from_collection(seasons_array)
     end
   end
 
@@ -35,7 +36,7 @@ class CLI
       puts "Founded In: " + "#{team.founded}".colorize(:green)
       puts "Best Performance: " + "#{best_performance}".colorize(:green)
       puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
-      puts "Current Record: " + "#{team.wins} - #{team.losses} (#{team.win_pct})".colorize(:green)
+      puts "Current Record: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
   end
 
 end
