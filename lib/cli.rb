@@ -64,8 +64,8 @@ class CLI
     end
   end
 
-  def search_teams
-    puts "Please Put Full Team Name" + " E.G. New York Knicks".colorize(light_blue)
+  def search_team
+    puts "Please Input Full Team Name" + " E.G. New York Knicks".colorize(light_blue)
     input = gets.strip
     if Team.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
     else team = Team.find(input)
@@ -80,6 +80,19 @@ class CLI
       puts "Best Performance: " + "#{best_performance}".colorize(:green)
       puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
       puts "-----------------------".colorize(:blue)
+      end
     end
+
+    def search_season
+      puts "Please Input 7 Character Season" + " E.G. 2001-02".colorize(light_blue)
+      input = gets.strip
+      if Season.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
+      else sel_seasons_array = Season.find(input)
+        sel_seasons_array.each {|season|
+        puts "#{season.team}   #{season.wins}-#{season.losses}   #{season.playoffs}"
+        }
+      end
+    end
+
 
 end

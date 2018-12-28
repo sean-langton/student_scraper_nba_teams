@@ -18,4 +18,8 @@ class Season
   def self.all
     @@all
   end
+
+  def self.find(year_input)
+    @@all.select{|season| season if Season.year == year}
+  end
 end
