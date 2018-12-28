@@ -60,7 +60,9 @@ class CLI
     input = gets.strip
       if Team.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
       else Team.find(input).summary
-          puts "Last Season: "+ "#{Team.find(input).seasons[1].wins} - #{Team.find(input).seasons[1].losses}  #{Team.find(input).seasons[1].playoffs}".colorize(:green)
+           Team.find(input).seasons.each {|season|
+             puts "#{season.year} "+ "#{season.wins} - #{season.losses}  #{season.playoffs}".colorize(:green)
+           }
       end
   end
 
