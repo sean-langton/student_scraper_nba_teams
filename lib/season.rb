@@ -20,6 +20,6 @@ class Season
   end
 
   def self.find(year_input)
-    @@all.select{|season| season if Season.year == year}
+    @@all.select{|season| season.year == year_input}
   end
 end

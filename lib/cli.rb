@@ -50,46 +50,28 @@ class CLI
 
   def historical_summary
     Team.all.each do |team|
-      best_performance =
-        if team.league_champ.to_i > 0 then "League Champions (#{team.league_champ} times)"
-        elsif team.conf_champ.to_i > 0 then "Conference Champions (#{team.conf_champ} times)"
-        elsif team.div_champ.to_i > 0 then "Divison Champions (#{team.div_champ} times)"
-        else "making (#{team.playoff_app} playoff appearences)"
-        end
-      puts "#{team.name}".colorize(:cyan)
-      puts "Founded In: " + "#{team.founded}".colorize(:green)
-      puts "Best Performance: " + "#{best_performance}".colorize(:green)
-      puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
+      team.summary
       puts "-----------------------".colorize(:blue)
     end
   end
 
   def search_team
-    puts "Please Input Full Team Name" + " E.G. New York Knicks".colorize(light_blue)
+    puts "Please Input Full Team Name" + " E.G. New York Knicks".colorize(:light_blue)
     input = gets.strip
-    if Team.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
-    else team = Team.find(input)
-      best_performance =
-        if team.league_champ.to_i > 0 then "League Champions (#{team.league_champ} times)"
-        elsif team.conf_champ.to_i > 0 then "Conference Champions (#{team.conf_champ} times)"
-        elsif team.div_champ.to_i > 0 then "Divison Champions (#{team.div_champ} times)"
-        else "making (#{team.playoff_app} playoff appearences)"
-        end
-      puts "#{team.name}".colorize(:cyan)
-      puts "Founded In: " + "#{team.founded}".colorize(:green)
-      puts "Best Performance: " + "#{best_performance}".colorize(:green)
-      puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
-      puts "-----------------------".colorize(:blue)
+      if Team.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
+      else Team.find(input).summary
+          puts "Last Season: "+ "#{Team.find(input).seasons[1].wins} - #{Team.find(input).seasons[1].losses}  #{Team.find(input).seasons[1].playoffs}".colorize(:green)
       end
-    end
+  end
 
     def search_season
-      puts "Please Input 7 Character Season" + " E.G. 2001-02".colorize(light_blue)
+      puts "Please Input 7 Character Season" + " E.G. 2001-02".colorize(:light_blue)
       input = gets.strip
+      binding.pry
       if Season.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
       else sel_seasons_array = Season.find(input)
         sel_seasons_array.each {|season|
-        puts "#{season.team}   #{season.wins}-#{season.losses}   #{season.playoffs}"
+        puts "#{season.team_name}   #{season.wins}-#{season.losses}   #{season.playoffs}"
         }
       end
     end

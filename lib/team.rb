@@ -27,4 +27,21 @@ class Team
     @@all.find{|team| team if team.name == name}
   end
 
+  def seasons
+    @seasons
+  end
+
+  def summary
+    best_performance =
+      if self.league_champ.to_i > 0 then "League Champions (#{self.league_champ} times)"
+      elsif self.conf_champ.to_i > 0 then "Conference Champions (#{self.conf_champ} times)"
+      elsif self.div_champ.to_i > 0 then "Divison Champions (#{self.div_champ} times)"
+      else "making (#{self.playoff_app} playoff appearences)"
+      end
+    puts "#{self.name}".colorize(:cyan)
+    puts "Founded In: " + "#{self.founded}".colorize(:green)
+    puts "Best Performance: " + "#{best_performance}".colorize(:green)
+    puts "Historical Performance: " + "#{self.historic_wins} - #{self.historic_losses} (#{self.historic_win_pct})".colorize(:green)
+  end
+
 end
