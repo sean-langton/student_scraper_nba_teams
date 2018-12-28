@@ -69,7 +69,6 @@ class CLI
     def search_season
       puts "Please Input 7 Character Season" + " E.G. 2001-02".colorize(:light_blue)
       input = gets.strip
-      binding.pry
       if Season.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
       else sel_seasons_array = Season.find(input)
         sel_seasons_array.each {|season|
