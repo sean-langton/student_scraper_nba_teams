@@ -22,7 +22,7 @@ class Scraper
       div_champ = team.css("td")[9].text
       conf_champ = team.css("td")[10].text
       league_champ = team.css("td")[11].text
-      team = {name:name, team_link:team_link, founded:year_started, historic_win_pct:historic_win_pct, playoff_app:playoff_app, div_champ:div_champ, conf_champ:conf_champ, league_champ:league_champ}
+      team = {name:name, team_link:team_link, founded:year_started, historic_win_pct:historic_win_pct, historic_wins:historic_wins, historic_losses:historic_losses, playoff_app:playoff_app, div_champ:div_champ, conf_champ:conf_champ, league_champ:league_champ}
       scraped_teams.push(team)
     end
   scraped_teams

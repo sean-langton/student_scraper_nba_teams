@@ -20,7 +20,7 @@ class CLI
     Team.all.each do |team|
       seasons_array = Scraper.scrape_seasons(BASE_PATH + team.team_link.gsub("/teams/", ""))
       team = team
-      Season.create_from_collection(seasons_array)
+      Season.create_from_collection(seasons_array, team)
     end
   end
 
@@ -36,7 +36,7 @@ class CLI
       puts "Founded In: " + "#{team.founded}".colorize(:green)
       puts "Best Performance: " + "#{best_performance}".colorize(:green)
       puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
-      puts "Current Record: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
+#      puts "Current Record: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
   end
 
 end

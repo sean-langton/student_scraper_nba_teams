@@ -4,14 +4,15 @@ class Season
 
   @@all = []
 
-  def initialize(season_hash)
+  def initialize(season_hash, team)
+    self.team = team
+    team.add_season(self)
     season_hash.each {|key, value| self.send(("#{key}="), value)}
-#    self.send(:team, team)
     @@all.push(self)
   end
 
-  def self.create_from_collection(season_array)
-    season_array.each {|season_hash| Season.new(season_hash)}
+  def self.create_from_collection(season_array, team)
+    season_array.each {|season_hash| Season.new(season_hash, team)}
   end
 
   def self.all

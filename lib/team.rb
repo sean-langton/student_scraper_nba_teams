@@ -15,8 +15,8 @@ class Team
     }
   end
 
-  def self.add_season(season)
-    @season << season
+  def add_season(season)
+    @seasons << season
   end
 
   def self.all
