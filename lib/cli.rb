@@ -64,4 +64,22 @@ class CLI
     end
   end
 
+  def search_teams
+    puts "Please Put Full Team Name" + " E.G. New York Knicks".colorize(light_blue)
+    input = gets.strip
+    if Team.find(input) == nil then puts "Sorry, That Was Not A Value Team Team"
+    else team = Team.find(input)
+      best_performance =
+        if team.league_champ.to_i > 0 then "League Champions (#{team.league_champ} times)"
+        elsif team.conf_champ.to_i > 0 then "Conference Champions (#{team.conf_champ} times)"
+        elsif team.div_champ.to_i > 0 then "Divison Champions (#{team.div_champ} times)"
+        else "making (#{team.playoff_app} playoff appearences)"
+        end
+      puts "#{team.name}".colorize(:cyan)
+      puts "Founded In: " + "#{team.founded}".colorize(:green)
+      puts "Best Performance: " + "#{best_performance}".colorize(:green)
+      puts "Historical Performance: " + "#{team.historic_wins} - #{team.historic_losses} (#{team.historic_win_pct})".colorize(:green)
+      puts "-----------------------".colorize(:blue)
+    end
+
 end

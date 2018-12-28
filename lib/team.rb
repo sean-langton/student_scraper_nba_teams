@@ -23,4 +23,8 @@ class Team
     @@all
   end
 
+  def self.find(name)
+    @@all.find{|team| team if team.name == name}
+  end
+
 end
