@@ -8,7 +8,7 @@ class CLI
 
   def run
     make_teams
-    add_seasons
+#    add_seasons
     menu
   end
 
@@ -17,12 +17,9 @@ class CLI
     Team.create_from_collection(teams_array)
   end
 
-  def add_seasons
-    Team.all.each do |team|
+  def add_seasons(team)
       seasons_array = Scraper.scrape_seasons(BASE_PATH + team.team_link.gsub("/teams/", ""))
-      team = team
       Season.create_from_collection(seasons_array, team)
-    end
   end
 
   def menu
@@ -58,9 +55,13 @@ class CLI
   def search_team
     puts "Please Input Full Team Name" + " E.G. New York Knicks".colorize(:light_blue)
     input = gets.strip
-      if Team.find(input) == nil then puts "Sorry, That Was Not A Valid Value. Please Try Again."
-      else Team.find(input).summary
-           Team.find(input).seasons.each {|season|
+      if Team.find(input) == nil
+        puts "Sorry, That Was Not A Valid Value. Please Try Again."
+      else
+           team = Team.find(input)
+           add_seasons(team) if team.seasons == []
+           team.summary
+           team.seasons.each {|season|
              puts "#{season.year} "+ "#{season.wins} - #{season.losses}  #{season.playoffs}".colorize(:green)
            }
       end
@@ -69,8 +70,12 @@ class CLI
     def search_season
       puts "Please Input 7 Character Season" + " E.G. 2001-02".colorize(:light_blue)
       input = gets.strip
-      if Season.find(input) == nil then puts "Sorry, That Was Not A Valid Input. Please Try Again."
-      else sel_seasons_array = Season.find(input)
+      if Season.find(input) == nil
+        puts "Sorry, That Was Not A Valid Input. Please Try Again."
+      else
+        Team.all.each {|team| add_seasons(team) if team.seasons == []}
+        team = Team.find(input)
+        sel_seasons_array = Season.find(input)
         sel_seasons_array.each {|season|
         puts "#{season.team_name}   #{season.wins}-#{season.losses}   #{season.playoffs}"
         }

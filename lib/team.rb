@@ -33,10 +33,14 @@ class Team
 
   def summary
     best_performance =
-      if self.league_champ.to_i > 0 then "League Champions (#{self.league_champ} times)"
-      elsif self.conf_champ.to_i > 0 then "Conference Champions (#{self.conf_champ} times)"
-      elsif self.div_champ.to_i > 0 then "Divison Champions (#{self.div_champ} times)"
-      else "making (#{self.playoff_app} playoff appearences)"
+      if self.league_champ.to_i > 0
+         "League Champions (#{self.league_champ} times)"
+      elsif self.conf_champ.to_i > 0
+        "Conference Champions (#{self.conf_champ} times)"
+      elsif self.div_champ.to_i > 0
+        "Divison Champions (#{self.div_champ} times)"
+      else
+        "making (#{self.playoff_app} playoff appearences)"
       end
     puts "#{self.name}".colorize(:cyan)
     puts "Founded In: " + "#{self.founded}".colorize(:green)
